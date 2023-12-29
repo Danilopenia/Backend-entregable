@@ -48,7 +48,7 @@ class ProductsFs{
 getProducts() {
     try {
     
-     if (this.Products.length===0) {
+     if (this.products.length===0) {
        throw new Error("they arent products");
      }else{
        return this.products;
@@ -76,7 +76,6 @@ try {
 const ruta = "./Entrega2/data/fs/files/products.json";
 const contenido = JSON.stringify([{title:"aaa"},{price:1000},{stock:200}],null,2);
 fs.writeFileSync(ruta, contenido)
-
 /*const Product = new ProductsFs("./Entrega2/data/fs/files/product.json")
 Product.createProduct({ name: "hp1", place: "showcase" });
 Product.createProduct({ name: "hp2", place: "showcaseB" });

@@ -19,7 +19,7 @@ class UsersFs{
       }
       async createUser({ name, lastname, ...data }) {
         try {
-          if (!name || !lastName) {
+          if (!name || !lastname) {
             throw new Error("Please, insert name & lastname");
             //VA A ACTIVAR EL CATCH (MANEJADOR DE ERRORES)
           }  
