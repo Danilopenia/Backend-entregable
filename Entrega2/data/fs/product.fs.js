@@ -48,7 +48,7 @@ class ProductsFs{
 getProducts() {
     try {
     
-     if (this.Products.length===0) {
+     if (this.products.length===0) {
        throw new Error("they arent products");
      }else{
        return this.products;
@@ -80,5 +80,5 @@ fs.writeFileSync(ruta, contenido)
 /*const Product = new ProductsFs("./Entrega2/data/fs/files/product.json")
 Product.createProduct({ name: "hp1", place: "showcase" });
 Product.createProduct({ name: "hp2", place: "showcaseB" });
-fs.writeFileSync(Product)*/
-//hecho
+fs.writeFileSync(Product)
+//hecho222*/
