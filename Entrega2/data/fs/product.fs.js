@@ -81,3 +81,4 @@ fs.writeFileSync(ruta, contenido)
 Product.createProduct({ name: "hp1", place: "showcase" });
 Product.createProduct({ name: "hp2", place: "showcaseB" });
 fs.writeFileSync(Product)*/
+//hecho
