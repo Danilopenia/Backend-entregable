@@ -1,4 +1,4 @@
-class ProductManager {
+/*class ProductManager {
     static #products = [];
   
     id;
@@ -54,4 +54,4 @@ class ProductManager {
     price: 200,
   });
   
-  console.log(ProdManager.read());
+  console.log(ProdManager.read());*/

@@ -1,55 +1,56 @@
-import fs from "fs"
+const fs = require ("fs") 
+const crypto = require("crypto")
 
-class UsersFs{
+class UsersManager{
     static #users
 
 
-    constructor(path){
+   
+    init() {
+      try{
+        const exists = fs.existsSync(this.path);
+        if (!exists) {
+          const data = JSON.stringify([],null,2 );
+          fs.writeFileSync(this.path, data);
+        } else {
+          this.users= JSON.parse(fs.readFileSync(this.path, "utf-8"));
+        }
+      }catch(error){
+        return error.message;
+      }
+      } constructor(path){
         this.path = path;
         this.users = [];
         this.init();
     }
-    init() {
-        const file = fs.existsSync(this.path);
-        if (file) {
-          this.users = JSON.parse(fs.readFileSync(this.path, "utf-8"));
-        } else {
-          fs.writeFileSync(this.path, JSON.stringify([], null, 2));
-        }
-      }
-      async createUser({ name, lastname, ...data }) {
+      async createUser(data) {
         try {
-          if (!name || !lastname) {
-            throw new Error("Please, insert name & lastname");
+          if (!data.name || !data.lastname) {
+            throw new Error("Please, insert title & price");
             //VA A ACTIVAR EL CATCH (MANEJADOR DE ERRORES)
           }  
-
-
+        
       const user = {
-        id:
-          this.users.length === 0
-            ? 1
-            : this.users[this.users.length - 1].id + 1,
-        name,
-        lastname,
-        gmail,
+        id: crypto.randomBytes(12).toString("hex"),
+        name:data.title,
+        lastname: data.lastname,
+        gmail: data.gmail,
         date: data.date || new Date(),
       };
       this.users.push(user);
-      await fs.promises.writeFile(
-        this.path,
-        JSON.stringify(this.users, null, 2)
-      );
-      return true;
-    } catch (error) {
-      return error.message;
-    }
-}
+      const jsonData = JSON.stringify(this.users,null,2)
+        await fs.promises.writeFile(this.path, jsonData);
+        console.log("create"+ user.id);
+        return user.id;
+    }catch(error){
+      console.log(error.message);
+      return error.message
+    }}
 getUser() {
     try {
     
      if (this.users.length===0) {
-       throw new Error("they arent products");
+       throw new Error("they arent users");
      }else{
        return this.users;
      }
@@ -73,6 +74,9 @@ try {
 }
 }}
 
-const ruta = "./Entrega2/data/fs/files/user.json";
-const contenido = JSON.stringify([{name:"aa"},{lastname:"bbb"},{gmail:"ffff"}],null,2);
-fs.writeFileSync(ruta, contenido)
+const user = new UsersManager("./data/fs/files/users.json");
+//products.getProducts();
+user.createUser({ title: "hp1", price: 100 });
+user.createUser({ title: "hp2", price: 100 });
+user.getUser();
+user.getUserById(1);

@@ -1,50 +1,51 @@
-import fs from "fs"
+const fs = require ("fs") 
+const crypto = require("crypto")
 
-class ProductsFs{
+class ProductsManager{
     static #products
 
 
-    constructor(path){
+   
+    init() {
+      try{
+        const exists = fs.existsSync(this.path);
+        if (!exists) {
+          const data = JSON.stringify([],null,2 );
+          fs.writeFileSync(this.path, data);
+        } else {
+          this.products = JSON.parse(fs.readFileSync(this.path, "utf-8"));
+        }
+      }catch(error){
+        return error.message;
+      }
+      } constructor(path){
         this.path = path;
         this.products = [];
         this.init();
     }
-    init() {
-        const file = fs.existsSync(this.path);
-        if (file) {
-          this.products = JSON.parse(fs.readFileSync(this.path, "utf-8"));
-        } else {
-          fs.writeFileSync(this.path, JSON.stringify([], null, 2));
-        }
-      }
-      async createProduct({ title, price, ...data }) {
+      async createProduct(data ) {
         try {
-          if (!title || !price) {
+          if (!data.title || !data.price) {
             throw new Error("Please, insert title & price");
             //VA A ACTIVAR EL CATCH (MANEJADOR DE ERRORES)
           }  
-
-
+        
       const product = {
-        id:
-          this.products.length === 0
-            ? 1
-            : this.products[this.products.length - 1].id + 1,
-        title,
+        id: crypto.randomBytes(12).toString("hex"),
+        title:data.title,
         price: data.price || 10,
         stock: data.stock || 50,
         date: data.date || new Date(),
       };
       this.products.push(product);
-      await fs.promises.writeFile(
-        this.path,
-        JSON.stringify(this.products, null, 2)
-      );
-      return true;
-    } catch (error) {
-      return error.message;
-    }
-}
+      const jsonData = JSON.stringify(this.products,null,2)
+        await fs.promises.writeFile(this.path, jsonData);
+        console.log("create"+ product.id);
+        return product.id;
+    }catch(error){
+      console.log(error.message);
+      return error.message
+    }}
 getProducts() {
     try {
     
@@ -73,11 +74,9 @@ try {
 }
 }}
 
-const ruta = "./Entrega2/data/fs/files/products.json";
-const contenido = JSON.stringify([{title:"aaa"},{price:1000},{stock:200}],null,2);
-fs.writeFileSync(ruta, contenido)
-/*const Product = new ProductsFs("./Entrega2/data/fs/files/product.json")
-Product.createProduct({ name: "hp1", place: "showcase" });
-Product.createProduct({ name: "hp2", place: "showcaseB" });
-fs.writeFileSync(Product)*/
-//hecho
+const products = new ProductsManager("./data/fs/files/products.json");
+//products.getProducts();
+products.createProduct({ title: "hp1", price: 100 });
+products.createProduct({ title: "hp2", price: 100 });
+products.getProducts();
+products.getProductById(1);
