@@ -1,5 +1,5 @@
-const fs = require ("fs") 
-const crypto = require("crypto")
+import fs from "fs"
+import crypto from "crypto"
 
 class ProductsManager{
     static #products
@@ -72,11 +72,25 @@ try {
   } catch (error) {
   return error.message;
 }
-}}
+}
 
+async removeProductById(id) {
+  try {
+    let one = this.products.find((each) => each.id === id);
+    if (!one) {
+      throw new Error("There isn't any product with id=" + id);
+    } else {
+      this.products = this.products.filter((each) => each.id !== id);
+      const jsonData = JSON.stringify(this.products, null, 2);
+      await fs.promises.writeFile(this.path, jsonData);
+      console.log("deleted " + id);
+      return id;
+    }
+  } catch (error) {
+    console.log(error.message);
+    return error.message;
+  }
+}
+}
 const products = new ProductsManager("./data/fs/files/products.json");
-//products.getProducts();
-products.createProduct({ title: "hp1", price: 100 });
-products.createProduct({ title: "hp2", price: 100 });
-products.getProducts();
-products.getProductById(1);
+export default products

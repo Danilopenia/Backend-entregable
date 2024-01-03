@@ -36,6 +36,22 @@ class ProductManager {
       return ProductManager.#products.find((el) => el.id == id);
     }
   }
+  removeProductById(id) 
+    try {
+      let one = this.Products.find((each) => each.id === id);
+      if (!one) {
+        throw new Error("There isn't any product with id=" + id);
+      } else {
+        this.events = this.products.filter((each) => each.id !== id);
+        const jsonData = JSON.stringify(this.products, null, 2);
+        await fs.promises.writeFile(this.path, jsonData);
+        console.log("deleted " + id);
+        return id;
+      }
+    } catch (error) {
+      console.log(error.message);
+      return error.message;
+    }
   
   const ProdManager = new ProductManager();
   

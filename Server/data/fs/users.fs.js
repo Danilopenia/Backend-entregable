@@ -1,5 +1,5 @@
-const fs = require ("fs") 
-const crypto = require("crypto")
+import fs from "fs";
+import crypto from "crypto";
 
 class UsersManager{
     static #users
@@ -72,11 +72,30 @@ try {
   } catch (error) {
   return error.message;
 }
-}}
+}
+async removeUserById(id) {
+  try {
+    let one = this.users.find((each) => each.id === id);
+    if (!one) {
+      throw new Error("There isn't any user with id=" + id);
+    } else {
+      this.users = this.users.filter((each) => each.id !== id);
+      const jsonData = JSON.stringify(this.users, null, 2);
+      await fs.promises.writeFile(this.path, jsonData);
+      console.log("deleted " + id);
+      return id;
+    }
+  } catch (error) {
+    console.log(error.message);
+    return error.message;
+  }
+}
+}
 
 const user = new UsersManager("./data/fs/files/users.json");
-//products.getProducts();
+/*products.getProducts();
 user.createUser({ title: "hp1", price: 100 });
 user.createUser({ title: "hp2", price: 100 });
 user.getUser();
-user.getUserById(1);
+user.getUserById(1);*/
+export default user
