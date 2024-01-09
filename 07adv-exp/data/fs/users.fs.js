@@ -26,13 +26,13 @@ class UsersManager{
       async createUser(data) {
         try {
           if (!data.name || !data.lastname) {
-            throw new Error("Please, insert title & price");
+            throw new Error("Please, insert name & lastname");
             //VA A ACTIVAR EL CATCH (MANEJADOR DE ERRORES)
           }  
         
       const user = {
         id: crypto.randomBytes(12).toString("hex"),
-        name:data.title,
+        name: data.name,
         lastname: data.lastname,
         gmail: data.gmail,
         date: data.date || new Date(),
@@ -62,7 +62,7 @@ getUser() {
 
  getUserById(id) {
 try {
-  const one = this.users.find((each) => each.id === Number(id));
+  const one = this.users.find((each) => each.id === id);
    if (!one) { 
     throw new Error ("ERROR the user with id "+id+" doesnt exist");
    }else{
