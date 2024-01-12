@@ -6,6 +6,7 @@ class ProductsManager {
   static #perGain = 0.3;
   static #totalGain = 0;
 
+
   init() {
     try {
       const exists = fs.existsSync(this.path);
@@ -18,8 +19,7 @@ class ProductsManager {
     } catch (error) {
       return error.message;
     }
-  }
-  constructor(path) {
+  } constructor(path) {
     this.path = path;
     this.products = [];
     this.init();
@@ -47,15 +47,16 @@ class ProductsManager {
     } catch (error) {
       console.log(error.message);
       return error.message;
-    }
-  }
+    }}
   getProducts() {
     try {
+
       if (this.products.length === 0) {
         throw new Error("they arent products");
       } else {
         return this.products;
       }
+
     } catch (error) {
       return error.message;
     }
@@ -69,6 +70,7 @@ class ProductsManager {
       } else {
         return one;
       }
+
     } catch (error) {
       return error.message;
     }
@@ -91,6 +93,7 @@ class ProductsManager {
       return error.message;
     }
   }
+
 
   async soldticket(quantity, pid) {
     try {
@@ -117,6 +120,7 @@ class ProductsManager {
     }
   }
 }
+
 
 const products = new ProductsManager("./data/fs/files/products.json");
 export default products;

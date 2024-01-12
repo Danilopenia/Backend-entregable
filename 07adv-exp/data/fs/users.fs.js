@@ -4,6 +4,8 @@ import crypto from "crypto";
 class UsersManager {
   static #users;
 
+
+
   init() {
     try {
       const exists = fs.existsSync(this.path);
@@ -16,8 +18,7 @@ class UsersManager {
     } catch (error) {
       return error.message;
     }
-  }
-  constructor(path) {
+  } constructor(path) {
     this.path = path;
     this.users = [];
     this.init();
@@ -44,15 +45,16 @@ class UsersManager {
     } catch (error) {
       console.log(error.message);
       return error.message;
-    }
-  }
+    }}
   getUser() {
     try {
+
       if (this.users.length === 0) {
         throw new Error("they arent users");
       } else {
         return this.users;
       }
+
     } catch (error) {
       return error.message;
     }
@@ -66,6 +68,7 @@ class UsersManager {
       } else {
         return one;
       }
+      
     } catch (error) {
       return error.message;
     }
