@@ -5,76 +5,67 @@ import users from "./data/fs/users.fs.js";
 const server = express();
 
 const PORT = 8080;
-const ready = ()=>console.log('server ready on port'+PORT);
+const ready = () => console.log("server ready on port" + PORT);
 
-server.use(express.urlencoded({extended: true }))
+server.use(express.urlencoded({ extended: true }));
 
 server.listen(PORT, ready);
 
-
-
-server.get("/api/products", (req, res)=>{
-
-try {
+server.get("/api/products", (req, res) => {
+  try {
     const all = products.getProducts();
     if (Array.isArray(all)) {
-       return res.status(200).json({
+      return res.status(200).json({
         success: true,
         message: all,
-       }) ;  
-    }else{
-        return res.status(404).json({
-            success:false,
-            message: error.message
-        })
-    }
-} catch (error) {
-    return res.status(500).json({
+      });
+    } else {
+      return res.status(404).json({
         success: false,
-        message: error.message
-    })
-}
+        message: error.message,
+      });
+    }
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
 });
 
-server.get("/api/products/:pid", (req,res)=>{
-    const {pid}= req.params
-    const one = products.getProductById(pid)
-    return res.status(200).json(one)
-})
+server.get("/api/products/:pid", (req, res) => {
+  const { pid } = req.params;
+  const one = products.getProductById(pid);
+  return res.status(200).json(one);
+});
 
-
-server.get("/api/users", (req, res)=>{
-
-    try {
-        const all = users.getUser()
-        if (Array.isArray(all)) {
-           return res.status(200).json({
-            success: true,
-            message: all,
-           }) ;  
-        }else{
-            return res.status(404).json({
-                success:false,
-                message: error.message
-            })
-        }
-    } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: error.message
-        })
+server.get("/api/users", (req, res) => {
+  try {
+    const all = users.getUser();
+    if (Array.isArray(all)) {
+      return res.status(200).json({
+        success: true,
+        message: all,
+      });
+    } else {
+      return res.status(404).json({
+        success: false,
+        message: error.message,
+      });
     }
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
     });
-    
-    server.get("/api/users/:pid", (req,res)=>{
-        const {pid}= req.params
-        const one = users.getUserById(pid)
-        return res.status(200).json(one)
-    })
+  }
+});
 
-
-
-
+server.get("/api/users/:pid", (req, res) => {
+  const { pid } = req.params;
+  const one = users.getUserById(pid);
+  return res.status(200).json(one);
+});
 
 /*endpoints
 const ruta = "/"
@@ -111,3 +102,4 @@ return res.status(200).json({
 });
 };
 server.get(rutaConParams2, cbParams2);*/
+//
