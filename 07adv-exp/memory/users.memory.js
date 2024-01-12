@@ -33,22 +33,22 @@ class userManager {
     return userManager.#users.find((el) => el.id == id);
   }
 }
-removeUserById(id);
-try {
-  let one = this.users.find((each) => each.id === id);
-  if (!one) {
-    throw new Error("There isn't any user with id=" + id);
-  } else {
-    this.users = this.users.filter((each) => each.id !== id);
-    const jsonData = JSON.stringify(this.users, null, 2);
-    await fs.promises.writeFile(this.path, jsonData);
-    console.log("deleted " + id);
-    return id;
+removeUserById(id) 
+  try {
+    let one = this.users.find((each) => each.id === id);
+    if (!one) {
+      throw new Error("There isn't any user with id=" + id);
+    } else {
+      this.users = this.users.filter((each) => each.id !== id);
+      const jsonData = JSON.stringify(this.users, null, 2);
+      await fs.promises.writeFile(this.path, jsonData);
+      console.log("deleted " + id);
+      return id;
+    }
+  } catch (error) {
+    console.log(error.message);
+    return error.message;
   }
-} catch (error) {
-  console.log(error.message);
-  return error.message;
-}
 
 const UserManager = new userManager();
 
