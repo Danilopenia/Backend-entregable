@@ -1,0 +1,19 @@
+{{!--disenar la pag--}}
+{{!--desde el endpoint me envian el objeto con la propiedad products--}}
+<main>
+    <h1>pag de products</h1>
+    <h3>{{date}}</h3>
+    {{#if details}}
+    <p>{{details}}</p>
+    {{else}}
+    <p>Lorem ipsum dolor sit amet consectet
+        ur adipisicing elit. Temporibus, asper
+        iores sit repellendus minima illo dicta
+         aliquid inventore blanditiis? Et vero 
+         debitis at vel quia exercitationem dolori
+         bus eligendi saepe amet fugit.</p>
+{{/if}}
+         {{#each products}}
+         <h3>{{this}}</h3>
+         {{/each}}
+</main>
