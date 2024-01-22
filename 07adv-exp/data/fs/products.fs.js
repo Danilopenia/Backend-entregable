@@ -34,6 +34,7 @@ class ProductsManager{
       const product = {
         id: crypto.randomBytes(12).toString("hex"),
         title:data.title,
+        poster: data.poster || "https://i.postimg.cc/HxdvTwqJ/events.jpg",
         price: data.price || 10,
         stock: data.stock || 50,
         capacity: data.capacity || 50,

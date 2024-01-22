@@ -30,7 +30,7 @@ server.post("/api/products", async (req, res) => {
         });
       }
     } catch (error) {
-   return next (error)
+  
     }
   });
   server.post("/api/users", async (req, res) => {
@@ -50,7 +50,7 @@ server.post("/api/products", async (req, res) => {
         });
       }
     } catch (error) {
-     return next(error)
+    
     }
   });
   server.post("/api/orders", async (req, res) => {
@@ -70,7 +70,7 @@ server.post("/api/products", async (req, res) => {
         });
       }
     } catch (error) {
-     return next(error)
+    
     }
   });
   //GETPRODUCTS
@@ -89,7 +89,7 @@ server.post("/api/products", async (req, res) => {
         });
       }
     } catch (error) {
-    return next(error)
+   
     }
   });
   //GETUSERS
@@ -108,7 +108,7 @@ server.post("/api/products", async (req, res) => {
         });
       }
     } catch (error) {
-    return next(error)
+  
     }
   });
   //GETORDERS
@@ -127,7 +127,7 @@ server.post("/api/products", async (req, res) => {
         });
       }
     } catch (error) {
-    return next(error)
+    
     }
   });
   
@@ -148,30 +148,10 @@ server.post("/api/products", async (req, res) => {
         });
       }
     } catch (error) {
-     return next (error)
+    
     }
   });
   
-  //GETUSER BYID
-  server.get("/api/users/:uid", async (req, res) => {
-    try {
-      const { uid } = req.params;
-      const one = await users.getUserById(uid);
-      if (typeof one === "string") {
-        return res.json({
-          statusCode: 404,
-          message: one,
-        });
-      } else {
-        return res.json({
-          statusCode: 200,
-          response: one,
-        });
-      }
-    } catch (error) {
-    return next (error)
-    }
-  });
   //GETORDERBYID
   server.get("/api/orders/:uid", async (req, res) => {
     try {
@@ -189,7 +169,7 @@ server.post("/api/products", async (req, res) => {
         });
       }
     } catch (error) {
-    return next (error)
+    
     }
   });
 
@@ -210,7 +190,7 @@ server.post("/api/products", async (req, res) => {
         });
       }
     } catch (error) {
-    return next (error)
+   
     }
   });
   //DELETEUSER
@@ -230,7 +210,7 @@ server.post("/api/products", async (req, res) => {
         });
       }
     } catch (error) {
-     return next(error)
+    
     }
   });
 //DELETEORDER
@@ -250,7 +230,7 @@ server.delete("/api/orders/:uid", async (req, res) => {
       });
     }
   } catch (error) {
-   return next(error)
+   
   }
 });
 
@@ -276,7 +256,7 @@ server.delete("/api/orders/:uid", async (req, res) => {
         });
       }
     } catch (error) {
-    return next (error)
+    
     }
   });
 //ORDERSUPDATEID
@@ -301,7 +281,7 @@ server.put("/api/orders/:pid/:quantity", async (req, res) => {
       });
     }
   } catch (error) {
-  return next (error)
+  
   }
 });
 
