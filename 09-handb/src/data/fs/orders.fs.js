@@ -115,24 +115,6 @@ async soldOrder(quantity, pid) {
   }
 }
 }
-app.put('/orders/:id', (req, res) => {
-  try {
-    const orderId = parseInt(req.params.id);
-    const updatedOrders = req.body;
-
-    const orderIndex = orders.findIndex(order => order.id === orderId);
-
-    if (orderIndex !== -1) {
-      // Actualizar los datos del producto
-      orders[orderIndex] = { ...orders[orderIndex], ...updatedOrders };
-      res.json(orders[orderIndex]);
-    } else {
-      res.status(404).json({ error: 'orden no encontrado' });
-    }
-  } catch (error) {
-    res.status(500).json({ error: 'Error interno del servidor' });
-  }
-});
 
 
 const orders = new OrderManager("./src/data/fs/files/orders.json");

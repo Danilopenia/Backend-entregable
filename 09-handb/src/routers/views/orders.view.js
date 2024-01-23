@@ -1,14 +1,14 @@
 import { Router } from "express";
-import products from "../../data/fs/products.fs.js"
+import orders from "../../data/fs/orders.fs.js"
 
 
-const productsRouter = Router()
+const ordersRouter = Router()
 
 
-productsRouter.post("/", async (req, res) => {
+ordersRouter.post("/", async (req, res) => {
     try {
       const data = req.body;
-      const response = await products.createProduct(data);
+      const response = await orders.createOrder(data);
       if (response === "Please, insert title & price") {
         return res.json({
           statusCode: 400,
@@ -26,10 +26,10 @@ productsRouter.post("/", async (req, res) => {
     }
   });
 
-    //GETPRODUCTS
-    productsRouter.get("/", async (req, res) => {
+    //GETORDERS
+    ordersRouter.get("/", async (req, res) => {
         try {
-          const all = await products.getProducts();
+          const all = await orders.getOrders();
           if (Array.isArray(all)) {
             return res.json({
               statusCode: 200,
@@ -47,11 +47,11 @@ productsRouter.post("/", async (req, res) => {
       });
 
     
-  //GETPRODUCTSBYID
-  productsRouter.get("/", async (req, res) => {
+  //GETORDERSBYID
+  ordersRouter.get("/", async (req, res) => {
     try {
-      const { pid } = req.params;
-      const one = await products.getProductById(pid);
+      const { oid } = req.params;
+      const one = await orders.getOrderById(oid);
       if (typeof one === "string") {
         return res.json({
           statusCode: 404,
@@ -68,11 +68,11 @@ productsRouter.post("/", async (req, res) => {
     }
   });   
 
-    //DELETEPRODUCT
-    productsRouter.delete("/:pid", async (req, res) => {
+    //DELETEORDERS
+    ordersRouter.delete("/:oid", async (req, res) => {
         try {
-          const { pid } = req.params;
-          const response = await products.removeProductById(pid);
+          const { oid } = req.params;
+          const response = await orders.removeOrderById(pid);
           if (response === "There isn't any product") {
             return res.json({
               statusCode: 404,
@@ -91,10 +91,10 @@ productsRouter.post("/", async (req, res) => {
 
 
       //PRODUCTSUPDATEID
-  productsRouter.put("/:pid", async (req, res) => {
+  ordersRouter.put("/:oid", async (req, res) => {
     try {
-      const { pid, quantity } = req.params;
-      const response = await products.soldticket(quantity, pid);
+      const { oid, quantity } = req.params;
+      const response = await orders.soldticket(quantity, oid);
       if (typeof response === "number") {
         return res.json({
           statusCode: 200,
@@ -115,16 +115,16 @@ productsRouter.post("/", async (req, res) => {
     
     }
   });
-productsRouter.get("/pag", async(req, res, next)=>{
+ordersRouter.get("/", async(req, res, next)=>{
     try {
-       const all = await products.getProducts()
-       return res.render("products", { products: all })
+       const all = await orders.getOrders()
+       return res.render("orders", { orders: all })
     } catch (error) {
      next(error)   
     }
 });
 
-productsRouter.get("/new", (req, res, next)=>{
+ordersRouter.get("/new", (req, res, next)=>{
     try {
         return res.render("new")
     } catch (error) {
@@ -132,4 +132,4 @@ productsRouter.get("/new", (req, res, next)=>{
     }
 })
 
-export default productsRouter
+export default ordersRouter

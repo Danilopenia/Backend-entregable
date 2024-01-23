@@ -90,9 +90,9 @@ usersRouter.get("/", async (req, res) => {
   
 usersRouter.use("/profile", (req, res, next)=>{
   try {
-    const one = users.getUser("b305db8143d8ec8c0f1ba992")
+    const one = users.getUser("daee422ee0199c15f5ab4884");
     console.log(one);
-    return res.render("profile", { user: one });
+    return res.render("profile", { one });
   } catch (error) {
     next(error)
   }
